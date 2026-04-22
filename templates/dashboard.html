@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard — ClearSpeak AI</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+
+<!-- Navbar -->
+<nav class="navbar">
+    <a href="/" class="navbar-logo">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+        ClearSpeak AI
+    </a>
+    <div class="navbar-actions">
+        <a href="/">Home</a>
+        <a href="/about">About</a>
+        <a href="/login" class="btn btn-primary">Log In</a>
+    </div>
+</nav>
+
+<div class="dashboard-wrapper">
+    <div style="max-width:1200px; margin:0 auto; padding:24px 40px 0;">
+        <h1 style="font-size:1.5rem; font-weight:700; color:var(--navy);">Document Analysis</h1>
+        <p style="font-size:0.9rem; color:var(--gray-500); margin-top:4px;">Upload or paste a legal document to get AI-powered analysis</p>
+    </div>
+    <div class="dashboard-grid">
+        <!-- Input Panel -->
+        <div class="panel">
+            <h2>
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+                Input
+            </h2>
+            <textarea id="documentInput" placeholder="Paste your legal document here..." style="width:100%; min-height:200px; padding:14px; border:1.5px solid var(--gray-200); border-radius:var(--radius); font-family:inherit; font-size:0.92rem; resize:vertical; color:var(--gray-700); line-height:1.6;"></textarea>
+
+            <div class="divider-or">or upload a file</div>
+
+            <div class="upload-area" onclick="document.getElementById('fileInput').click()">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+                <span>Upload PDF, TXT, JPG, or PNG</span>
+                <input type="file" id="fileInput" accept=".pdf,.txt,.jpg,.jpeg,.png" onchange="handleFileSelect(event)">
+            </div>
+
+            <div class="divider-or">or capture from camera</div>
+
+            <button class="btn btn-camera" onclick="openCamera()" style="width:100%; justify-content:center;">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>
+                Capture Document
+            </button>
+
+            <div id="fileChip" style="display:none; margin-top:12px;"></div>
+
+            <div class="input-row" style="margin-top:20px">
+                <select class="mode-select" id="modeSelect" style="flex:1">
+                    <option value="student">📚 Student</option>
+                    <option value="professional">💼 Professional</option>
+                    <option value="risk">⚠️ Risk Analysis</option>
+                </select>
+                <button class="btn btn-primary" id="simplifyBtn" onclick="simplifyDocument()" style="flex:2">Analyze Document →</button>
+            </div>
+        </div>
+
+        <!-- Results Panel -->
+        <div class="panel" id="dashResultsPanel">
+            <h2>
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+                Results
+            </h2>
+            <div id="dashboardResults">
+                <p style="color:var(--gray-400); text-align:center; padding:60px 0; font-size:0.95rem;">Your analysis results will appear here after you submit a document.</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Camera Modal -->
+<div class="camera-modal" id="cameraModal">
+    <div class="camera-container">
+        <h3>📸 Capture Document</h3>
+        <video id="cameraVideo" autoplay playsinline></video>
+        <canvas id="cameraCanvas" style="display:none"></canvas>
+        <img id="cameraPreview" class="camera-preview-img" style="display:none">
+        <div class="camera-actions">
+            <button class="btn btn-primary" id="captureBtn" onclick="capturePhoto()">📷 Capture</button>
+            <button class="btn btn-primary" id="retakeBtn" onclick="retakePhoto()" style="display:none">🔄 Retake</button>
+            <button class="btn btn-camera" id="useCapturedBtn" onclick="useCapturedImage()" style="display:none">✅ Use This Image</button>
+            <button class="btn btn-secondary" onclick="closeCamera()">Cancel</button>
+        </div>
+    </div>
+</div>
+
+<!-- Loading Spinner -->
+<div class="spinner-overlay" id="spinner">
+    <div class="spinner"></div>
+    <div class="spinner-text">Analyzing your document with AI...</div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script src="/static/js/app.js"></script>
+</body>
+</html>
