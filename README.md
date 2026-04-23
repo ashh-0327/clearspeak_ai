@@ -8,13 +8,13 @@ ClearSpeak AI uses advanced NLP and RAG (Retrieval-Augmented Generation) technol
 
 ## Features
 
-- **📋 Document Simplification** — Paste text, upload files (PDF/TXT/JPG/PNG), or capture documents via camera
-- **📸 Camera Capture** — Snap a photo of a document directly from your device
-- **🧠 AI-Powered Analysis** — Summary, key terms, risk flags, action items, and overall risk level
-- **📚 Multiple Modes** — Student, Professional, and Risk Analysis
-- **🧩 Comprehension Quiz** — Auto-generated quiz to test understanding
-- **🔍 Domain Detection** — Automatically identifies the type of legal document
-- **📡 RAG Technology** — Retrieval-augmented generation with a curated legal knowledge base
+- **Document Simplification** — Paste text, upload files (PDF/TXT/JPG/PNG), or capture documents via camera
+- **Camera Capture** — Snap a photo of a document directly from your device
+- **AI-Powered Analysis** — Summary, key terms, risk flags, action items, and overall risk level
+- **Multiple Modes** — Student, Professional, and Risk Analysis
+- **Comprehension Quiz** — Auto-generated quiz to test understanding
+- **Domain Detection** — Automatically identifies the type of legal document
+- **RAG Technology** — Retrieval-augmented generation with a curated legal knowledge base
 
 ---
 
