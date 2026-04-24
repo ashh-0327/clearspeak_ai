@@ -30,38 +30,4 @@ ClearSpeak AI uses advanced NLP and RAG (Retrieval-Augmented Generation) technol
 | PDF Parsing | pdfplumber + pdfminer |
 
 ---
-
-## Project Structure
-
-```
-clearspeak-ai/
-├── main.py                 # FastAPI app entry point
-├── routers/
-│   ├── explain.py          # /api/upload, /api/explain, /api/validate endpoints
-│   └── frontend.py         # HTML page routes
-├── services/
-│   ├── llm.py              # Groq LLM integration
-│   ├── rag.py              # ChromaDB RAG retrieval
-│   ├── parser.py           # PDF/Image/Text extraction
-│   ├── classifier.py       # Domain detection
-│   ├── knowledge_base.py   # Legal knowledge base
-│   └── validator.py        # Quiz answer validation
-├── templates/
-│   ├── home.html           # Landing page
-│   ├── dashboard.html      # Document analysis workspace
-│   ├── login.html          # Login page
-│   ├── about.html          # About page
-│   └── domains.html        # Domain selection page
-├── static/
-│   ├── css/style.css       # Design system
-│   └── js/app.js           # Frontend logic
-├── data/chroma_db/         # ChromaDB vector store
-├── requirements.txt
-├── Dockerfile
-├── Procfile
-├── .env                    # GROQ_API_KEY (not committed)
-└── .gitignore
-```
-
----
-
+Live website : https://huggingface.co/spaces/ashh-0327/Clearspeak_ai
